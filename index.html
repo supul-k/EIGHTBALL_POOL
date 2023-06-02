@@ -40,39 +40,52 @@ var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
 		</div>
 		<button id="play-button">Play</button>
 	  </div> -->
-	  <div id="page-content">
+	  <!-- <div id="page-content">
 		<button id="play-button">Play</button>
-	</div>
-	<div id="video-modal" class="modal">
+	</div> -->
+	<div id="video-modal" class="modal" style="display: none;">
 	  <div class="modal-content">
 		<video id="video-element">
 		  <source src="https://storage.googleapis.com/interactive-media-ads/media/android.mp4">
 		  <source src="https://storage.googleapis.com/interactive-media-ads/media/android.webm">
+		  <h1 style="color: white">Your browser does not support the video tag.</h1>
 		</video>
 		<span class="close">&times;</span>
 	  </div>
 	</div>
-	  <script>
-		// Open the modal when the play button is clicked
-		var playButton = document.getElementById("play-button");
+	<script>
 		var modal = document.getElementById("video-modal");
-		playButton.addEventListener("click", function() {
-			modal.style.display = "block";
-		});
+		var video = document.getElementById("video-element");
+		var closeButton = document.getElementsByClassName("close")[0];
+		var modalTimeout;
+
+		// function playVideo() {
+		// 	modal.style.display = "block";
+		// 	video.play();
+		// 	modalTimeout = setTimeout(closeVideo, 10000); // Close modal after 30 seconds
+		// }
+
+		function closeVideo() {
+			modal.style.display = "none";
+			video.pause();
+			video.currentTime = 0;
+			clearTimeout(modalTimeout);
+		}
+
+		// Trigger the playVideo function every minute
+		setInterval(playVideo, 30000);
 
 		// Close the modal when the close button is clicked
-		var closeButton = document.getElementsByClassName("close")[0];
-		closeButton.addEventListener("click", function() {
-			modal.style.display = "none";
-		});
+		closeButton.addEventListener("click", closeVideo);
 
 		// Close the modal when the user clicks outside of it
 		window.addEventListener("click", function(event) {
 			if (event.target === modal) {
-				modal.style.display = "none";
+				closeVideo();
 			}
 		});
 	</script>
+
 	  <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 	  <script src="ads.js"></script>
 
