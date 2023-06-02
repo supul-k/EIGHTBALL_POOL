@@ -15,6 +15,9 @@ window.adsbygoogle = window.adsbygoogle || [];
 var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
 </script>
 
+<script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+<script src="ads.js"></script>
+
 <meta name="generator" content="Scirra Construct">
 	<meta name="author" content="Muscle-SS">
 	<meta name="description" content="game">
@@ -28,10 +31,22 @@ var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
 
 </head>
 <body>
+<div>
+	<div id="video-modal" class="modal" style="display: none;">
+		<div class="modal-content">
+			<video id="video-element">
+			<!-- <source src="https://storage.googleapis.com/interactive-media-ads/media/android.mp4">
+			<source src="https://storage.googleapis.com/interactive-media-ads/media/android.webm"> -->
+			<h1 style="color: white">Your browser does not support the video tag.</h1>
+			</video>
+			<div id="ad-container"></div>
+			<span class="close">&times;</span>
+		</div>
+	</div>
+</div>
 
-
-    <!-- <div id="page-content">
-		<div id="video-container">
+    <div id="page-content">
+		<!-- <div id="video-container">
 		  <video id="video-element">
 			<source src="https://storage.googleapis.com/interactive-media-ads/media/android.mp4">
 			<source src="https://storage.googleapis.com/interactive-media-ads/media/android.webm">
@@ -40,20 +55,8 @@ var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
 		</div>
 		<button id="play-button">Play</button>
 	  </div> -->
-	  <!-- <div id="page-content">
-		<button id="play-button">Play</button>
-	</div> -->
-	<div id="video-modal" class="modal" style="display: none;">
-	  <div class="modal-content">
-		<video id="video-element">
-		  <source src="https://storage.googleapis.com/interactive-media-ads/media/android.mp4">
-		  <source src="https://storage.googleapis.com/interactive-media-ads/media/android.webm">
-		  <h1 style="color: white">Your browser does not support the video tag.</h1>
-		</video>
-		<span class="close">&times;</span>
-	  </div>
-	</div>
-	<script>
+		
+	<!-- <script>
 		var modal = document.getElementById("video-modal");
 		var video = document.getElementById("video-element");
 		var closeButton = document.getElementsByClassName("close")[0];
@@ -84,19 +87,14 @@ var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
 				closeVideo();
 			}
 		});
+	</script> -->
+
+	<script>
+		if (location.protocol.substr(0, 4) === "file")
+		{
+			alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+		}
 	</script>
-
-	  <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-	  <script src="ads.js"></script>
-
-
-
-<script>
-if (location.protocol.substr(0, 4) === "file")
-{
-	alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
-}
-</script>
 	<script src="box2d.wasm.js"></script>
 	<noscript>
 		<div id="notSupportedWrap">

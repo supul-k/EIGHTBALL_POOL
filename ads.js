@@ -7,16 +7,52 @@ var adsLoader;
 var adsManager;
 
 
+
+
 window.addEventListener('load', function(event) {
+
+  var modal = document.getElementById("video-modal");
   videoElement = document.getElementById('video-element');
+  var closeButton = document.getElementsByClassName("close")[0];
+  var modalTimeout;
   initializeIMA();
   videoElement.addEventListener('play', function(event) {
     loadAds(event);
   });
-  var playButton = document.getElementById('play-button');
-  playButton.addEventListener('click', function(event) {
-    videoElement.play();
+
+
+  // var button = document.getElementById('button');
+  // button.addEventListener('click', function(event) {
+    
+  // });
+
+  setInterval(playVideo, 30000);
+  closeButton.addEventListener("click", closeVideo);
+
+  function playVideo() {
+    console.log('video tag running');
+			modal.style.display = "block";
+      // loadAds(event);
+			videoElement.play();
+			modalTimeout = setTimeout(closeVideo, 10000); // Close modal after 30 seconds
+	}
+
+  function closeVideo() {
+    modal.style.display = "none";
+    videoElement.pause();
+    videoElement.currentTime = 0;
+    clearTimeout(modalTimeout);
+  }
+
+  window.addEventListener("click", function(event) {
+    if (event.target === modal) {
+      closeVideo();
+    }
   });
+  // var playButton = document.getElementById('play-button');
+  // playButton.addEventListener('click', function(event) {
+  //   videoElement.play();
+  // });
 });
 
 window.addEventListener('resize', function(event) {
@@ -58,21 +94,15 @@ adsLoader.addEventListener(
 
   function onAdsManagerLoaded(adsManagerLoadedEvent) {
     // Instantiate the AdsManager from the adsLoader response and pass it the video element
-    adsManager = adsManagerLoadedEvent.getAdsManager(
-        videoElement);
+    adsManager = adsManagerLoadedEvent.getAdsManager(videoElement);
 
-        adsManager.addEventListener(
-            google.ima.AdErrorEvent.Type.AD_ERROR,
+    adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR,
             onAdError);
-            adsManager.addEventListener(
-                google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
-                onContentPauseRequested);
-            adsManager.addEventListener(
-                google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
-                onContentResumeRequested);
-                adsManager.addEventListener(
-                    google.ima.AdEvent.Type.LOADED,
-                    onAdLoaded);
+    adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
+            onContentPauseRequested);
+    adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
+            onContentResumeRequested);
+    adsManager.addEventListener(google.ima.AdEvent.Type.LOADED,onAdLoaded);
   }
   
   function onAdLoaded(adEvent) {
